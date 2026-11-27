@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ favorites: ids });
   } catch {
     return NextResponse.json(
-      { error: "Saving launches needs a Postgres connection (DATABASE_URL)." },
+      { error: "Saving launches needs a Postgres connection (DATABASE_URL or POSTGRES_URL)." },
       { status: 503 },
     );
   }

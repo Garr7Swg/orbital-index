@@ -4,13 +4,26 @@ type Sql = ReturnType<typeof postgres>;
 
 const globalForDb = globalThis as unknown as { __orbitalSql?: Sql };
 
+// DATABASE_URL is our own name; the Vercel Supabase integration injects
+// POSTGRES_URL (pooled, 6543) and POSTGRES_URL_NON_POOLING (direct, 5432).
+// Accept all three so no variable has to be duplicated by hand.
+const CONNECTION_VARS = ["DATABASE_URL", "POSTGRES_URL", "POSTGRES_URL_NON_POOLING"] as const;
+
+export function databaseUrl(): string | undefined {
+  for (const name of CONNECTION_VARS) {
+    const value = process.env[name];
+    if (value) return value;
+  }
+  return undefined;
+}
+
 export function hasDatabase() {
-  return Boolean(process.env.DATABASE_URL);
+  return Boolean(databaseUrl());
 }
 
 export function db(): Sql {
-  const url = process.env.DATABASE_URL;
-  if (!url) throw new Error("DATABASE_URL is not configured");
+  const url = databaseUrl();
+  if (!url) throw new Error("No Postgres connection string configured (DATABASE_URL or POSTGRES_URL)");
   if (!globalForDb.__orbitalSql) {
     // Supabase, Neon and most managed hosts expect TLS; a local Postgres does
     // not. Honour an explicit sslmode in the URL, otherwise require TLS for
