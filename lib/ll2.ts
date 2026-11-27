@@ -97,7 +97,9 @@ async function ll2Fetch(path: string, attempt = 0): Promise<{ count: number; res
     res = await fetch(`${BASE}${path}`, {
       headers,
       cache: "no-store",
-      signal: AbortSignal.timeout(12_000),
+      // Detailed LL2 payloads run 3 MB and the upstream can take 15s+; a short
+      // timeout made every cold serverless render fail.
+      signal: AbortSignal.timeout(30_000),
     });
   } catch (error) {
     throw new Ll2Error(
@@ -162,7 +164,9 @@ export async function fetchLaunchById(id: string): Promise<LaunchSummary | null>
         ? { Authorization: `Token ${process.env.LL2_API_KEY}`, Accept: "application/json" }
         : { Accept: "application/json" },
       cache: "no-store",
-      signal: AbortSignal.timeout(12_000),
+      // Detailed LL2 payloads run 3 MB and the upstream can take 15s+; a short
+      // timeout made every cold serverless render fail.
+      signal: AbortSignal.timeout(30_000),
     });
     if (!res.ok) return null;
     return normalizeLaunch((await res.json()) as RawLaunch);

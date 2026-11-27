@@ -25,6 +25,7 @@ import { getLaunchData } from "@/lib/store";
 import { supabaseConfigured } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 function Stat({
   icon,

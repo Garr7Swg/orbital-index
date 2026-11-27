@@ -35,7 +35,7 @@ export async function refreshLaunches(reason = "manual"): Promise<SyncResult> {
   let upcoming: LaunchSummary[] = [];
   let previous: LaunchSummary[] = [];
   try {
-    const [next, past] = await Promise.all([fetchUpcoming(100), fetchPrevious(100)]);
+    const [next, past] = await Promise.all([fetchUpcoming(60), fetchPrevious(60)]);
     upcoming = next;
     previous = past;
   } catch (error) {

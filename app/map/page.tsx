@@ -9,6 +9,7 @@ import { getLaunchData } from "@/lib/store";
 import { TLE_GROUPS } from "@/lib/tle";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export const metadata: Metadata = {
   title: "Live launch & orbit map — Orbital Index",

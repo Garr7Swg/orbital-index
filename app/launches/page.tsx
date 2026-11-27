@@ -6,6 +6,7 @@ import { getLaunchData } from "@/lib/store";
 import { getSessionUser, supabaseConfigured } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export const metadata: Metadata = {
   title: "Launch manifest — Orbital Index",
