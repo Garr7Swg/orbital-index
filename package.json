@@ -1,0 +1,49 @@
+{
+  "name": "orbital-index",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live space launch tracking — Launch Library 2, satellite orbits, and a retrieval-grounded AI assistant.",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "postinstall": "node scripts/sync-maplibre-worker.mjs",
+    "predev": "node scripts/sync-maplibre-worker.mjs",
+    "prebuild": "node scripts/sync-maplibre-worker.mjs",
+    "dev": "next dev --hostname 127.0.0.1 --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "poller": "node scripts/poller.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.2",
+    "@upstash/redis": "^1.41.1",
+    "echarts": "^6.1.0",
+    "lucide-react": "^1.82.0",
+    "maplibre-gl": "^6.19.0",
+    "next": "^16.4.6",
+    "node-cron": "^4.6.0",
+    "postgres": "^4.1.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "satellite.js": "^6.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^26.6.11",
+    "@types/node-cron": "^3.0.11",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "prettier": "^3.10.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^6.0.3"
+  }
+}
