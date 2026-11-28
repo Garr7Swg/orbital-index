@@ -64,10 +64,10 @@ Set the Site URL to the production origin and keep localhost in the redirect lis
 | `LL2_BASE_URL` | Defaults to `https://ll.thespacedevs.com/2.3.0`. |
 | `DATABASE_URL` | Supabase/Neon pooled Postgres URL. Enables persistence, watchlists, embeddings. |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Optional shared response cache. |
-| `GROQ_API_KEY` | Primary chat model (OpenAI-compatible Groq API). |
-| `GROQ_MODEL` | Defaults to `llama-3.3-70b-versatile`. |
-| `GEMINI_API_KEY` | Gemini chat fallback **and** `text-embedding-004` embeddings for pgvector search. |
-| `GEMINI_CHAT_MODEL` / `GEMINI_EMBED_MODEL` | Model overrides. |
+| `GEMINI_API_KEY` | **Primary** chat model, plus 768-dim embeddings for pgvector search. |
+| `GEMINI_CHAT_MODEL` / `GEMINI_EMBED_MODEL` | Default to `gemini-3.5-flash` / `gemini-embedding-001`. |
+| `GROQ_API_KEY` | Fallback chat model (OpenAI-compatible Groq API), used when Gemini fails. |
+| `GROQ_MODEL` | Defaults to `openai/gpt-oss-120b`. |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Enable sign-in with Supabase auth. |
 | `CRON_SECRET` | Required bearer secret for `/api/cron/sync` in production. |
 | `NEXT_PUBLIC_SITE_URL` | Optional origin override for auth redirects; blank = auto-detect (localhost / Vercel / custom domain). |
@@ -102,7 +102,7 @@ requests/hour, so an unkeyed 5-minute poller will get throttled — set `LL2_API
 
 1. Import the repo, framework preset **Next.js**, Node.js **24.x**.
 2. Add the environment variables per environment (Production / Preview / Development):
-   `DATABASE_URL`, `LL2_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY`, `CRON_SECRET`,
+   `DATABASE_URL`, `LL2_API_KEY`, `GEMINI_API_KEY`, `GROQ_API_KEY`, `CRON_SECRET`,
    `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Leave `NEXT_PUBLIC_SITE_URL` blank.
 3. Deploy, then add the resulting URLs to Supabase's redirect allowlist (see above).
 4. `vercel.json` registers the daily cron; Vercel sends `CRON_SECRET` as a bearer token. For a

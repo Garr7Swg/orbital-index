@@ -257,7 +257,7 @@ export default async function HomePage() {
             />
             <SystemRow
               label="Assistant"
-              value={process.env.GROQ_API_KEY ? "groq" : process.env.GEMINI_API_KEY ? "gemini" : "no key"}
+              value={process.env.GEMINI_API_KEY ? "gemini" : process.env.GROQ_API_KEY ? "groq" : "no key"}
               ok={Boolean(process.env.GROQ_API_KEY || process.env.GEMINI_API_KEY)}
             />
             <SystemRow
@@ -328,7 +328,7 @@ export default async function HomePage() {
           {
             icon: <Sparkles className="size-4 text-solar" aria-hidden />,
             title: "Grounded answers",
-            body: "The assistant calls retrieval functions against the same database, then answers with Groq or Gemini. Every claim links back to a launch record.",
+            body: "The assistant calls retrieval functions against the same database, then answers with Gemini or Groq. Every claim links back to a launch record.",
           },
         ].map((item) => (
           <article key={item.title} className="panel min-w-0 p-4">

@@ -27,7 +27,8 @@ export default function AssistantPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          <span className="chip">groq chat</span>
+          <span className="chip">gemini chat</span>
+          <span className="chip">groq fallback</span>
           <span className="chip">gemini embeddings</span>
           <span className="chip">{hasDatabase() ? "postgres" : "in-memory"}</span>
         </div>
@@ -72,14 +73,14 @@ export default function AssistantPage() {
               <h2 className="text-sm font-semibold text-ink">Fallback chain</h2>
             </div>
             <p className="mt-2 text-[11px] leading-relaxed text-muted">
-              Chat tries Groq first, then Gemini if Groq is rate-limited or missing. Embeddings always
+              Chat tries Gemini first, then Groq if Gemini is rate-limited or missing. Embeddings always
               come from Gemini. Without any key the archive still works — only the chat is offline.
             </p>
             <div className="mt-3 flex items-center gap-1.5 rounded-lg border border-solar/20 bg-solar/[0.05] p-2.5">
               <Braces className="size-3.5 shrink-0 text-solar" aria-hidden />
               <p className="text-[10px] leading-relaxed text-solar/85">
-                Set <span className="font-mono">GROQ_API_KEY</span> and{" "}
-                <span className="font-mono">GEMINI_API_KEY</span> in your server environment.
+                Set <span className="font-mono">GEMINI_API_KEY</span> as the primary chat key and{" "}
+                <span className="font-mono">GROQ_API_KEY</span> as the fallback.
               </p>
             </div>
           </section>

@@ -41,29 +41,29 @@ export async function answer(history: ChatMessage[]): Promise<AssistantReply> {
     };
   }
 
-  if (process.env.GROQ_API_KEY) {
-    try {
-      return await runGroq(messages);
-    } catch (error) {
-      console.error("[assistant] Groq failed", error);
-    }
-  }
-
   if (process.env.GEMINI_API_KEY) {
     try {
-      const reply = await runGemini(messages);
-      return {
-        ...reply,
-        notice: process.env.GROQ_API_KEY ? "Groq is unavailable — answering with Gemini." : undefined,
-      };
+      return await runGemini(messages);
     } catch (error) {
       console.error("[assistant] Gemini failed", error);
     }
   }
 
+  if (process.env.GROQ_API_KEY) {
+    try {
+      const reply = await runGroq(messages);
+      return {
+        ...reply,
+        notice: process.env.GEMINI_API_KEY ? "Gemini is unavailable — answering with Groq." : undefined,
+      };
+    } catch (error) {
+      console.error("[assistant] Groq failed", error);
+    }
+  }
+
   return {
     answer:
-      "The AI assistant is not configured yet. Add GROQ_API_KEY (chat) and/or GEMINI_API_KEY (embeddings) to your environment and redeploy. Everything else in the dashboard works without them.",
+      "The AI assistant is not configured yet. Add GEMINI_API_KEY (chat + embeddings) and/or GROQ_API_KEY (fallback chat) to your environment and redeploy. Everything else in the dashboard works without them.",
     citations: [],
     provider: "none",
     tools: [],
@@ -80,7 +80,7 @@ interface GroqMessage {
 }
 
 async function runGroq(history: ChatMessage[]): Promise<AssistantReply> {
-  const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+  const model = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
   const messages: GroqMessage[] = [
     { role: "system", content: SYSTEM_PROMPT },
     ...history.map((m) => ({ role: m.role, content: m.content })),
@@ -170,7 +170,7 @@ interface GeminiContent {
 
 async function runGemini(history: ChatMessage[]): Promise<AssistantReply> {
   const key = process.env.GEMINI_API_KEY;
-  const model = process.env.GEMINI_CHAT_MODEL || "gemini-2.0-flash";
+  const model = process.env.GEMINI_CHAT_MODEL || "gemini-3.5-flash";
   const contents: GeminiContent[] = history.map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
     parts: [{ text: m.content }],

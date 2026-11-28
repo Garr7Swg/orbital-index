@@ -1,5 +1,7 @@
 /** Gemini embeddings (free tier). Returns null when the key is missing or the call fails. */
-const MODEL = process.env.GEMINI_EMBED_MODEL || "text-embedding-004";
+const MODEL = process.env.GEMINI_EMBED_MODEL || "gemini-embedding-001";
+// launch_embeddings.embedding is vector(768); gemini-embedding-001 defaults to 3072.
+const DIMENSIONS = 768;
 const ENDPOINT = "https://generativelanguage.googleapis.com/v1beta";
 
 export function embeddingsConfigured() {
@@ -20,6 +22,7 @@ export async function embedTexts(texts: string[]): Promise<number[][] | null> {
         requests: texts.map((text) => ({
           model: `models/${MODEL}`,
           content: { parts: [{ text: text.slice(0, 4000) }] },
+          outputDimensionality: DIMENSIONS,
         })),
       }),
     });
