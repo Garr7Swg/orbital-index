@@ -499,7 +499,7 @@ export function LaunchMap({
 
   return (
     <div className="panel relative overflow-hidden">
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/8 px-3 py-2.5">
+      <div className="flex flex-wrap items-center gap-1.5 border-b border-white/8 px-2.5 py-2 sm:gap-2 sm:px-3 sm:py-2.5">
         <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ion">
           <SatelliteIcon className="size-3.5" aria-hidden />
           live orbit layer
@@ -507,7 +507,7 @@ export function LaunchMap({
         <span className="chip border-emerald-400/25 text-emerald-300">
           {showSats ? `${liveCount} tracked` : "hidden"}
         </span>
-        <span className="chip">{clock} UTC</span>
+        <span className="chip hidden sm:inline-flex">{clock} UTC</span>
         {loadingSats && (
           <span className="flex items-center gap-1 text-[10px] text-muted">
             <Loader2 className="size-3 animate-spin" aria-hidden /> syncing TLEs
@@ -538,8 +538,14 @@ export function LaunchMap({
         </div>
       </div>
 
-      <div className={`relative w-full ${compact ? "h-[360px]" : "h-[540px]"}`}>
-        <div ref={container} className="absolute inset-0" />
+      <div
+        className={`relative w-full ${
+          compact ? "h-[300px] sm:h-[340px] lg:h-[360px]" : "h-[340px] sm:h-[460px] lg:h-[540px]"
+        }`}
+      >
+        {/* Height must come from the parent: MapLibre's stylesheet forces
+            position: relative, so `absolute inset-0` collapses to 0px. */}
+        <div ref={container} className="h-full w-full" />
 
         {error && (
           <div className="absolute inset-x-3 top-3 rounded-lg border border-alert/30 bg-alert/10 p-2.5 text-[11px] text-alert">
@@ -547,8 +553,8 @@ export function LaunchMap({
           </div>
         )}
 
-        <div className="pointer-events-none absolute left-3 top-3 flex flex-col gap-1.5">
-          <div className="rounded-lg border border-white/10 bg-void/75 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted backdrop-blur">
+        <div className="pointer-events-none absolute left-2 right-2 top-2 flex flex-col items-start gap-1.5 sm:left-3 sm:right-auto sm:top-3">
+          <div className="rounded-lg border border-white/10 bg-void/75 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-muted backdrop-blur sm:px-2.5 sm:py-1.5 sm:text-[10px] sm:tracking-[0.14em]">
             {pads.length} launch sites · {sats.length} objects
           </div>
           <div className="pointer-events-auto flex flex-wrap gap-1">
@@ -574,7 +580,7 @@ export function LaunchMap({
         </div>
 
         {!compact && pads.length > 0 && (
-          <div className="absolute bottom-3 left-3 max-w-[240px] rounded-lg border border-white/10 bg-void/80 p-2 backdrop-blur">
+          <div className="absolute bottom-3 left-3 hidden max-w-[240px] rounded-lg border border-white/10 bg-void/80 p-2 backdrop-blur sm:block">
             <p className="eyebrow mb-1.5 flex items-center gap-1">
               <Locate className="size-3" aria-hidden /> jump to site
             </p>
@@ -594,7 +600,7 @@ export function LaunchMap({
           </div>
         )}
 
-        <div className="pointer-events-none absolute bottom-2 right-2 font-mono text-[9px] text-muted/70">
+        <div className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[8px] text-muted/70 sm:bottom-2 sm:left-3 sm:text-[9px]">
           ©{" "}
           <a
             className="pointer-events-auto underline"

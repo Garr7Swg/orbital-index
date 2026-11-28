@@ -230,10 +230,10 @@ export default async function HomePage() {
 
       {/* Map + systems */}
       <section className="grid gap-3 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+        <div className="min-w-0 lg:col-span-2">
           <LaunchMap pads={pads} compact />
         </div>
-        <div className="panel flex flex-col p-4">
+        <div className="panel flex min-w-0 flex-col p-4">
           <p className="eyebrow flex items-center gap-1.5">
             <Database className="size-3" aria-hidden /> systems
           </p>
@@ -288,10 +288,10 @@ export default async function HomePage() {
 
       {/* Charts + upcoming */}
       <section className="grid gap-3 lg:grid-cols-5">
-        <div className="lg:col-span-3">
+        <div className="min-w-0 lg:col-span-3">
           <LaunchCharts stats={stats} />
         </div>
-        <div className="panel p-4 lg:col-span-2">
+        <div className="panel min-w-0 p-4 lg:col-span-2">
           <div className="flex items-center justify-between">
             <div>
               <p className="eyebrow">Manifest</p>
@@ -331,7 +331,7 @@ export default async function HomePage() {
             body: "The assistant calls retrieval functions against the same database, then answers with Groq or Gemini. Every claim links back to a launch record.",
           },
         ].map((item) => (
-          <article key={item.title} className="panel p-4">
+          <article key={item.title} className="panel min-w-0 p-4">
             <div className="flex items-center gap-2">
               {item.icon}
               <h3 className="text-sm font-medium text-ink">{item.title}</h3>

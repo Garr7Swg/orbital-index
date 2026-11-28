@@ -154,13 +154,13 @@ export function LaunchCharts({ stats }: { stats: DashboardStats }) {
   }, [tab, stats]);
 
   return (
-    <div className="panel flex h-full flex-col p-4 sm:p-5">
+    <div className="panel flex h-full min-w-0 flex-col p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <p className="eyebrow">Analytics</p>
           <h2 className="mt-1 text-base font-semibold text-ink">Launch cadence & mix</h2>
         </div>
-        <div className="flex rounded-lg border border-white/10 bg-white/[0.03] p-0.5">
+        <div className="flex max-w-full flex-wrap rounded-lg border border-white/10 bg-white/[0.03] p-0.5">
           {TABS.map((item) => (
             <button
               key={item.id}
@@ -176,7 +176,11 @@ export function LaunchCharts({ stats }: { stats: DashboardStats }) {
         </div>
       </div>
 
-      <div ref={container} className="mt-3 h-[268px] w-full" aria-label="Launch statistics chart" />
+      <div
+        ref={container}
+        className="mt-3 h-[240px] w-full min-w-0 overflow-hidden sm:h-[268px]"
+        aria-label="Launch statistics chart"
+      />
 
       <p className="mt-auto pt-2 text-[11px] leading-relaxed text-muted/80">
         {tab === "cadence" && "Monthly launch count across tracked upcoming and completed missions."}

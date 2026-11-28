@@ -49,8 +49,8 @@ export default async function MapPage() {
       <LaunchMap pads={pads} />
 
       <div className="grid gap-3 lg:grid-cols-3">
-        <section className="panel p-4 lg:col-span-2">
-          <div className="flex items-center justify-between">
+        <section className="panel min-w-0 p-4 lg:col-span-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-semibold text-ink">Busiest launch sites</h2>
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
               upcoming cadence
@@ -58,7 +58,7 @@ export default async function MapPage() {
           </div>
           <div className="mt-3 divide-y divide-white/6">
             {pads.slice(0, 12).map((pad) => (
-              <div key={pad.id} className="flex items-center gap-3 py-2.5">
+              <div key={pad.id} className="flex min-w-0 items-center gap-2 py-2.5 sm:gap-3">
                 <span className="grid size-7 shrink-0 place-items-center rounded-md border border-white/10 bg-white/[0.03]">
                   <MapPin className="size-3.5 text-ion/80" aria-hidden />
                 </span>
@@ -84,8 +84,8 @@ export default async function MapPage() {
           </p>
         </section>
 
-        <div className="space-y-3">
-          <section className="panel p-4">
+        <div className="min-w-0 space-y-3">
+          <section className="panel min-w-0 p-4">
             <div className="flex items-center gap-2">
               <Satellite className="size-4 text-ion" aria-hidden />
               <h2 className="text-sm font-semibold text-ink">Tracked orbit groups</h2>
@@ -107,7 +107,7 @@ export default async function MapPage() {
             </p>
           </section>
 
-          <section className="panel p-4">
+          <section className="panel min-w-0 p-4">
             <div className="flex items-center gap-2">
               <Orbit className="size-4 text-plasma" aria-hidden />
               <h2 className="text-sm font-semibold text-ink">How the layer works</h2>
